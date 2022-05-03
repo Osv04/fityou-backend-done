@@ -13,7 +13,7 @@ using FitYouBackend.Models;
 
 namespace FitYouBackend.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    
     public class PlanController : ApiController
     {
         private FityouContext db = new FityouContext();
@@ -54,6 +54,8 @@ namespace FitYouBackend.Controllers
         public IHttpActionResult GetPlan(int id)
         {
             Plan plan = db.Plans.Find(id);
+
+            
             if (plan == null)
             {
                 return NotFound();

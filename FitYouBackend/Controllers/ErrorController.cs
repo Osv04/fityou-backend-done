@@ -6,11 +6,11 @@ using System.Web.Mvc;
 
 namespace FitYouBackend.Controllers
 {
-    public class HomeController : Controller
+    public class ErrorController : Controller
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Error Page";
 
             return View();
         }

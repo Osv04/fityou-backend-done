@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace FitYouBackend
 {
@@ -10,7 +11,7 @@ namespace FitYouBackend
         public static void Register(HttpConfiguration config)
         {
 
-            config.EnableCors();
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             // Web API configuration and services
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling 
