@@ -12,6 +12,7 @@ using FitYouBackend.Models;
 
 namespace FitYouBackend.Controllers
 {
+    [Authorize]
     public class AdministratorController : ApiController
     {
         private FityouContext db = new FityouContext();

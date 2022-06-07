@@ -22,6 +22,7 @@ namespace FitYouBackend.Controllers
         
         [Route("api/GetPlans")]
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<Plan> GetPlans()
         {
             foreach (Plan plan in db.Plans.ToList())
@@ -51,6 +52,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(Plan))]
         [Route("api/GetPlanById/{id}")]
         [HttpGet]
+        [AllowAnonymous]
         public IHttpActionResult GetPlan(int id)
         {
             Plan plan = db.Plans.Find(id);
@@ -84,6 +86,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(void))]
         [Route("api/PutPlan/{id}")]
         [HttpPut]
+        [Authorize]
         public IHttpActionResult PutPlan(int id,[FromBody] Plan plan)
         {
             if (!ModelState.IsValid)
@@ -121,6 +124,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(Plan))]
         [Route("api/PostPlan")]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult PostPlan([FromBody] Plan plan)
         {
             if (!ModelState.IsValid)
@@ -140,6 +144,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(Plan))]
         [Route("api/DeletePlan/{id}")]
         [HttpDelete]
+        [Authorize]
         public IHttpActionResult DeletePlan(int id)
         {
             Plan plan = db.Plans.Find(id);

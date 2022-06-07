@@ -12,6 +12,7 @@ using FitYouBackend.Models;
 
 namespace FitYouBackend.Controllers
 {
+    [AllowAnonymous]
     public class CompanyDetailController : ApiController
     {
         private FityouContext db = new FityouContext();

@@ -19,6 +19,7 @@ namespace FitYouBackend.Controllers
         // GET: api/GetInternets
         [Route("api/GetInternets")]
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<Internet> GetInternets()
         {
             return db.Internets.ToList();
@@ -28,6 +29,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(Internet))]
         [Route("api/GetInternetById/{id}")]
         [HttpGet]
+        [AllowAnonymous]
         public IHttpActionResult GetInternet(int id)
         {
             Internet internet = db.Internets.Find(id);
@@ -45,6 +47,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(void))]
         [Route("api/PutInternet/{id}")]
         [HttpPut]
+        [Authorize]
         public IHttpActionResult PutInternet(int id, [FromBody] Internet internet)
         {
             if (!ModelState.IsValid)
@@ -82,6 +85,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(Internet))]
         [Route("api/PostInternet")]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult PostInternet([FromBody] Internet internet)
         {
             if (!ModelState.IsValid)
@@ -99,6 +103,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(Internet))]
         [Route("api/DeleteInternet/{id}")]
         [HttpDelete]
+        [Authorize]
         public IHttpActionResult DeleteInternet(int id)
         {
             Internet internet = db.Internets.Find(id);

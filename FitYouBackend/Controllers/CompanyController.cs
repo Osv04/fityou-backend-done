@@ -21,6 +21,7 @@ namespace FitYouBackend.Controllers
         // GET: api/getCompanies
         [Route("api/getCompanies")]
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<Company> GetCompanies()
         {
             return db.Companies.ToList();
@@ -30,6 +31,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(Company))]
         [Route("api/getCompanyById/{id}")]
         [HttpGet]
+        [AllowAnonymous]
         public IHttpActionResult GetCompany(int id)
         {
             Company company = db.Companies.Find(id);
@@ -38,27 +40,6 @@ namespace FitYouBackend.Controllers
                 return NotFound();
             }
 
-            //foreach(CompanyDetail cd in company.CompanyDetails)
-            //{
-            //    cd.DetailPlan = db.DetailPlans.Find(cd.DetailPlanId);
-
-            //    if (cd.DetailPlan.InternetId.HasValue)
-            //    {
-            //        cd.DetailPlan.Internet = db.Internets.Find(cd.DetailPlan.InternetId);
-            //    }
-
-            //    if (cd.DetailPlan.TelecableId.HasValue)
-            //    {
-            //        cd.DetailPlan.Telecable = db.Telecables.Find(cd.DetailPlan.TelecableId);
-            //    }
-
-            //    if (cd.DetailPlan.TelephoneId.HasValue)
-            //    {
-            //        cd.DetailPlan.Telephone = db.Telephones.Find(cd.DetailPlan.TelephoneId);
-            //    }
-
-            //}
-
             return Ok(company);
         }
 
@@ -66,6 +47,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(void))]
         [Route("api/putCompany/{id}")]
         [HttpPut]
+        [Authorize]
         public IHttpActionResult PutCompany(int id, [FromBody] Company company)
         {
             if (!ModelState.IsValid)
@@ -103,6 +85,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(Company))]
         [Route("api/postCompany")]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult PostCompany([FromBody] Company company)
         {
             if (!ModelState.IsValid)
@@ -121,6 +104,7 @@ namespace FitYouBackend.Controllers
         [ResponseType(typeof(Company))]
         [Route("api/deleteCompany/{id}")]
         [HttpDelete]
+        [Authorize]
         public IHttpActionResult DeleteCompany(int id)
         {
             Company company = db.Companies.Find(id);

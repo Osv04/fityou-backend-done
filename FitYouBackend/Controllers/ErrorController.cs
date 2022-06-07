@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace FitYouBackend.Controllers
 {
+    [AllowAnonymous]
     public class ErrorController : Controller
     {
         public ActionResult Index()

@@ -26,6 +26,8 @@ namespace FitYouBackend.Models
         public DbSet<Telephone> Telephones { get; set; }
         public DbSet<Office> Offices { get; set; }
 
+        public DbSet<User> User { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
