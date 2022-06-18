@@ -88,10 +88,14 @@ namespace FitYouBackend.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Telephones.Add(telephone);
+            Telephone newTelephone = db.Telephones.Add(telephone);
             db.SaveChanges();
 
-            return Ok("Telephone created successfully.");
+            return Ok(new
+            {
+                message = "Internet created successfully.",
+                id = newTelephone.Id
+            });
         }
 
         // DELETE: api/DeleteTelephone/5

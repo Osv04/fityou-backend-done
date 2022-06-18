@@ -88,10 +88,15 @@ namespace FitYouBackend.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Telecables.Add(telecable);
+            Telecable newTelecable = db.Telecables.Add(telecable);
             db.SaveChanges();
 
-            return Ok("Telecable created successfully.");
+            return Ok(new
+            {
+                message = "Internet created successfully.",
+                id = newTelecable.Id
+            });
+
         }
 
         // DELETE: api/DeleteTelecable/5

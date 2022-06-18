@@ -93,10 +93,14 @@ namespace FitYouBackend.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Internets.Add(internet);
+            Internet internetCreated = db.Internets.Add(internet);
+
             db.SaveChanges();
 
-            return Ok("Internet created successfully.");
+            return Ok(new { 
+            message = "Internet created successfully.",
+            id = internetCreated.Id
+            });
         }
 
         // DELETE: api/DeleteInternet/5
