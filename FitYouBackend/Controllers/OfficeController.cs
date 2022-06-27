@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using ExcelDataReader;
 using FitYouBackend.Models;
 
 namespace FitYouBackend.Controllers
@@ -110,6 +113,86 @@ namespace FitYouBackend.Controllers
             db.SaveChanges();
 
             return Ok("Office deleted successfully.");
+        }
+
+        [HttpPost]
+        [Route("api/office/Importar")]
+        public IHttpActionResult loadDataFromExcel()
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("El modelo no es valido para enviuar");
+            }
+            else
+            {
+
+                HttpResponseMessage ResponseMessage = null;
+                var httpRequest = HttpContext.Current.Request;
+                DataSet dsexcelRecords = new DataSet();
+                IExcelDataReader reader = null;
+                HttpPostedFile Inputfile = null;
+                Stream FileStream = null;
+                int execution = 0;
+
+                if (httpRequest.Files.Count > 0)
+                {
+                    Inputfile = httpRequest.Files[0];
+                    FileStream = Inputfile.InputStream;
+
+                    if (Inputfile.FileName.EndsWith(".xls"))
+                        reader = ExcelReaderFactory.CreateBinaryReader(FileStream);
+                    else if (Inputfile.FileName.EndsWith(".xlsx"))
+                        reader = ExcelReaderFactory.CreateOpenXmlReader(FileStream);
+                    else
+                        return NotFound(); 
+
+                    
+                    dsexcelRecords = reader.AsDataSet();
+                    reader.Close();
+
+                    int count = 0;
+
+                    if (dsexcelRecords != null && dsexcelRecords.Tables.Count > 0)
+                    {
+
+                        DataTable dtStudentRecords = dsexcelRecords.Tables[0];
+
+                        for (int i = 1; i < dtStudentRecords.Rows.Count; i++)
+                        {
+
+                            Office sucrusal = new Office();
+                            sucrusal.Longitude = Convert.ToString(dtStudentRecords.Rows[i].ItemArray[0]);
+                            sucrusal.Latitude = Convert.ToString(dtStudentRecords.Rows[i].ItemArray[0]);
+                            sucrusal.PhoneNumber = Convert.ToString(dtStudentRecords.Rows[i].ItemArray[0]);
+                            sucrusal.CompanyId = int.Parse(dtStudentRecords.Rows[i].ItemArray[0].ToString());
+
+                            db.Offices.Add(sucrusal);
+                            count += db.SaveChanges();
+                        }
+
+                        if (count > dtStudentRecords.Rows.Count)
+                        {
+                            return Ok("Los datos se guardaron correctamente");
+                        }
+                        else
+                        {
+                            return BadRequest("Ha ocurrido un error");
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Ha ocurrido un error en el proceso");
+                    }
+
+                }
+                else
+                {
+                    return Ok("El documento esta vacio");
+                }
+            }
+
+            
         }
 
         protected override void Dispose(bool disposing)
