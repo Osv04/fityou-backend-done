@@ -13,14 +13,14 @@ using System.Web.Http.Cors;
 
 namespace FitYouBackend.Controllers
 {
-    [AllowAnonymous]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    
     public class AccountController : ApiController
     {
         private FityouContext db = new FityouContext();
 
         [Route("api/login")]
         [HttpPost]
+        [AllowAnonymous]
         public IHttpActionResult Login(User user)
         {
 
@@ -74,6 +74,7 @@ namespace FitYouBackend.Controllers
 
         [Route("api/validate")]
         [HttpGet]
+        [AllowAnonymous]
         //sadasd
         public IHttpActionResult ValidateToken(HttpRequestMessage request)
         {
