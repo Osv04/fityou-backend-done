@@ -17,6 +17,7 @@ namespace FitYouBackend.Models
         public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyDetail> CompanyDetails { get; set; }
+
         public DbSet<DetailPlan> DetailPlans { get; set; }
         public DbSet<Internet> Internets { get; set; }
         public DbSet<Package> Packages { get; set; }
