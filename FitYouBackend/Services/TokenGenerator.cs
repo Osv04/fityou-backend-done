@@ -5,6 +5,8 @@ using System.Security.Claims;
 
 namespace FitYouBackend.Services
 {
+
+    
     internal static class TokenGenerator
     {
         public static string GenerateTokenJwt(string username)

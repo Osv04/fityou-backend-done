@@ -46,5 +46,6 @@ namespace FitYouBackend.Models
 
         }
 
+        public System.Data.Entity.DbSet<FitYouBackend.Models.Tickets> Tickets { get; set; }
     }
 }

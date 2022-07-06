@@ -153,6 +153,24 @@ namespace FitYouBackend.Controllers
                 return NotFound();
             }
 
+            if (plan.InternetId.HasValue)
+            {
+                plan.Internet = db.Internets.Find(plan.InternetId);
+                db.Internets.Remove(plan.Internet);
+            }
+
+            if (plan.TelecableId.HasValue)
+            {
+                plan.Telecable = db.Telecables.Find(plan.TelecableId);
+                db.Telecables.Remove(plan.Telecable);
+            }
+
+            if (plan.TelephoneId.HasValue)
+            {
+                plan.Telephone = db.Telephones.Find(plan.TelephoneId);
+                db.Telephones.Remove(plan.Telephone);
+            }
+
             db.Plans.Remove(plan);
             db.SaveChanges();
 
